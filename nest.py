@@ -1,13 +1,9 @@
 import requests
 import json
 
-#This reads you're authirsation code and thermostat ID from the AuthDetails file. You'll need to change these for you
-f = open('AuthDetails', 'r')
-firstline = f.readline()
-secondline = f.readline()
-authcode = firstline[9:len(firstline)-1]
-thermID = secondline[8:]
-f.close()
+#These are unique to each user and thermostat respectively. You'll want to grab your authorisation token and thermostat ID and stick them in here
+authcode = ''
+thermID = ''
 
 baseurl = 'https://developer-api.nest.com/devices/thermostats/'
 totURL = baseurl + thermID + '?auth=' + authcode
