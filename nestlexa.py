@@ -16,6 +16,20 @@ def constructResponse(speech = None, end_session = True):
 	reply['response'] = response
 	return json.dumps(reply)
 	
+def setAbsTemp(temp):
+	if temp > 78:
+		speech = 'That\'s pretty hot, if you really want it above 78 set it manually'
+	elif temp < 64:
+		speech = 'That\'s pretty cold, if you really want it below 64 set it manually'
+	else:
+		payload = {'target_temperature_f':temp}
+		r = nest.putData(payload)
+		if r == 200:
+			speech = 'The target temperature has been set to ' + str(temp) + ' degrees farenheit'
+		else:
+			speech = 'Something appears to have gone wrong, try again'
+	return speech
+	
 def doIntent(intentJson):
 	if intentJson['name']=='GetTemp':
 		data = nest.getData()
@@ -23,40 +37,17 @@ def doIntent(intentJson):
 		return constructResponse(speech)
 	if intentJson['name']=='SetTemp':
 		temp = int(intentJson['slots']['temp']['value'])
-		if temp > 78:
-			speech = 'That\'s pretty hot, if you really want it above 78 set it manually'
-		elif temp < 64:
-			speech = 'That\'s pretty cold, if you really want it below 64 set it manually'
-		else:
-			payload = {'target_temperature_f':temp}
-			r = nest.putData(payload)
-			if r == 200:
-				speech = 'The target temperature has been set to ' + str(temp) + ' degrees farenheit'
-			else:
-				speech = 'Something appears to have gone wrong, try again'
-		return constructResponse(speech)
+		return constructResponse(setAbsTemp(temp))
 	if intentJson['name']=='BumpTemp':
 		data = nest.getData()
-		currTemp = int(data['ambient_temperature_f'])
+		currTemp = int(data['target_temperature_f'])
 		newTemp = currTemp + int(intentJson['slots']['bump']['value'])
-		payload = {'target_temperature_f':newTemp}
-		r = nest.putData(payload)
-		if r == 200:
-			speech = 'The target temperature has been set to ' + str(temp) + ' degrees farenheit'
-		else:
-			speech = 'Something appears to have gone wrong, try again'
-		return constructResponse(speech)
+		return constructResponse(setAbsTemp(newTemp))
 	if intentJson['name']=='DropTemp':
 		data = nest.getData()
-		currTemp = int(data['ambient_temperature_f'])
+		currTemp = int(data['target_temperature_f'])
 		newTemp = currTemp - int(intentJson['slots']['drop']['value'])
-		payload = {'target_temperature_f':newTemp}
-		r = nest.putData(payload)
-		if r == 200:
-			speech = 'The target temperature has been set to ' + str(temp) + ' degrees farenheit'
-		else:
-			speech = 'Something appears to have gone wrong, try again'
-		return constructResponse(speech)
+		return constructResponse(setAbsTemp(newTemp))
 						
 
 #parses what alexa has sent and figures out what to send back
