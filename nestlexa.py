@@ -35,7 +35,28 @@ def doIntent(intentJson):
 			else:
 				speech = 'Something appears to have gone wrong, try again'
 		return constructResponse(speech)
-		
+	if intentJson['name']=='BumpTemp':
+		data = nest.getData()
+		currTemp = int(data['ambient_temperature_f'])
+		newTemp = currTemp + int(intentJson['slots']['bump']['value']
+		payload = {'target_temperature_f':newTemp}
+		r = nest.putData(payload)
+		if r == 200:
+				speech = 'The target temperature has been set to ' + str(temp) + ' degrees farenheit'
+			else:
+				speech = 'Something appears to have gone wrong, try again'
+		return constructResponse(speech)
+	if intentJson['name']=='DropTemp':
+		data = nest.getData()
+		currTemp = int(data['ambient_temperature_f'])
+		newTemp = currTemp - int(intentJson['slots']['drop']['value']
+		payload = {'target_temperature_f':newTemp}
+		r = nest.putData(payload)
+		if r == 200:
+				speech = 'The target temperature has been set to ' + str(temp) + ' degrees farenheit'
+			else:
+				speech = 'Something appears to have gone wrong, try again'
+		return constructResponse(speech)
 						
 
 #parses what alexa has sent and figures out what to send back
