@@ -42,9 +42,9 @@ def doIntent(intentJson):
 		payload = {'target_temperature_f':newTemp}
 		r = nest.putData(payload)
 		if r == 200:
-				speech = 'The target temperature has been set to ' + str(temp) + ' degrees farenheit'
-			else:
-				speech = 'Something appears to have gone wrong, try again'
+			speech = 'The target temperature has been set to ' + str(temp) + ' degrees farenheit'
+		else:
+			speech = 'Something appears to have gone wrong, try again'
 		return constructResponse(speech)
 	if intentJson['name']=='DropTemp':
 		data = nest.getData()
@@ -53,9 +53,9 @@ def doIntent(intentJson):
 		payload = {'target_temperature_f':newTemp}
 		r = nest.putData(payload)
 		if r == 200:
-				speech = 'The target temperature has been set to ' + str(temp) + ' degrees farenheit'
-			else:
-				speech = 'Something appears to have gone wrong, try again'
+			speech = 'The target temperature has been set to ' + str(temp) + ' degrees farenheit'
+		else:
+			speech = 'Something appears to have gone wrong, try again'
 		return constructResponse(speech)
 						
 
