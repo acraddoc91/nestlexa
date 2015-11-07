@@ -38,7 +38,7 @@ def doIntent(intentJson):
 	if intentJson['name']=='BumpTemp':
 		data = nest.getData()
 		currTemp = int(data['ambient_temperature_f'])
-		newTemp = currTemp + int(intentJson['slots']['bump']['value']
+		newTemp = currTemp + int(intentJson['slots']['bump']['value'])
 		payload = {'target_temperature_f':newTemp}
 		r = nest.putData(payload)
 		if r == 200:
@@ -49,7 +49,7 @@ def doIntent(intentJson):
 	if intentJson['name']=='DropTemp':
 		data = nest.getData()
 		currTemp = int(data['ambient_temperature_f'])
-		newTemp = currTemp - int(intentJson['slots']['drop']['value']
+		newTemp = currTemp - int(intentJson['slots']['drop']['value'])
 		payload = {'target_temperature_f':newTemp}
 		r = nest.putData(payload)
 		if r == 200:
