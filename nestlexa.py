@@ -48,6 +48,13 @@ def doIntent(intentJson):
 		currTemp = int(data['target_temperature_f'])
 		newTemp = currTemp - int(intentJson['slots']['drop']['value'])
 		return constructResponse(setAbsTemp(newTemp))
+	if intentJson['name']=='GetSetTemp':
+		data = nest.getData()
+		speech = 'The current set temperature is ' + str(data['target_temperature_f']) + ' degrees farenheit'
+		return constructResponse(speech)
+	else:
+		speech = 'I\'m not sure I can do that, ask me something else'
+		return constructResponse(speech)
 						
 
 #parses what alexa has sent and figures out what to send back
