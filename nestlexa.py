@@ -33,7 +33,7 @@ def setAbsTemp(temp):
 def doIntent(intentJson):
 	if intentJson['name']=='GetTemp':
 		data = nest.getData()
-		speech = 'The current temperature is ' + str(data['ambient_temperature_f']) + ' degrees farenheit'
+		speech = 'The current temperature in the apartment is ' + str(data['ambient_temperature_f']) + ' degrees farenheit'
 		return constructResponse(speech)
 	if intentJson['name']=='SetTemp':
 		temp = int(intentJson['slots']['temp']['value'])
