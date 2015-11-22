@@ -43,21 +43,30 @@ def doIntent(intentJson):
 		card = 'The current temperature in the apartment is ' + str(data['ambient_temperature_f']) + ' degrees farenheit'
 		return constructResponse(speech, card)
 	if intentJson['name']=='SetTemp':
-		temp = int(intentJson['slots']['temp']['value'])
-		response = setAbsTemp(temp)
-		return constructResponse(response['speech'],response['card'])
+		try:
+			temp = int(intentJson['slots']['temp']['value'])
+			response = setAbsTemp(temp)
+			return constructResponse(response['speech'],response['card'])
+		except:
+			return constructResponse('Sorry I didn\'t quite hear what you said, could you repeat that?')
 	if intentJson['name']=='BumpTemp':
 		data = nest.getData()
 		currTemp = int(data['target_temperature_f'])
-		newTemp = currTemp + int(intentJson['slots']['bump']['value'])
-		response = setAbsTemp(newTemp)
-		return constructResponse(response['speech'],response['card'])
+		try:
+			newTemp = currTemp + int(intentJson['slots']['drop']['value'])
+			response = setAbsTemp(newTemp)
+			return constructResponse(response['speech'],response['card'])
+		except:
+			return constructResponse('Sorry I didn\'t quite hear what you said, could you repeat that?')
 	if intentJson['name']=='DropTemp':
 		data = nest.getData()
 		currTemp = int(data['target_temperature_f'])
-		newTemp = currTemp - int(intentJson['slots']['drop']['value'])
-		response = setAbsTemp(newTemp)
-		return constructResponse(response['speech'],response['card'])
+		try:
+			newTemp = currTemp - int(intentJson['slots']['drop']['value'])
+			response = setAbsTemp(newTemp)
+			return constructResponse(response['speech'],response['card'])
+		except:
+			return constructResponse('Sorry I didn\'t quite hear what you said, could you repeat that?')
 	if intentJson['name']=='GetSetTemp':
 		data = nest.getData()
 		speech = 'The current set temperature is ' + str(data['target_temperature_f']) + ' degrees farenheit'
