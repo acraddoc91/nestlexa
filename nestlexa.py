@@ -50,13 +50,13 @@ def doIntent(intentJson):
 		data = nest.getData()
 		currTemp = int(data['target_temperature_f'])
 		newTemp = currTemp + int(intentJson['slots']['bump']['value'])
-		response = setAbsTemp(temp)
+		response = setAbsTemp(newTemp)
 		return constructResponse(response['speech'],response['card'])
 	if intentJson['name']=='DropTemp':
 		data = nest.getData()
 		currTemp = int(data['target_temperature_f'])
 		newTemp = currTemp - int(intentJson['slots']['drop']['value'])
-		response = setAbsTemp(temp)
+		response = setAbsTemp(newTemp)
 		return constructResponse(response['speech'],response['card'])
 	if intentJson['name']=='GetSetTemp':
 		data = nest.getData()
