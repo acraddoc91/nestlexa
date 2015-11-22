@@ -53,7 +53,7 @@ def doIntent(intentJson):
 		data = nest.getData()
 		currTemp = int(data['target_temperature_f'])
 		try:
-			newTemp = currTemp + int(intentJson['slots']['drop']['value'])
+			newTemp = currTemp + int(intentJson['slots']['bump']['value'])
 			response = setAbsTemp(newTemp)
 			return constructResponse(response['speech'],response['card'])
 		except:
