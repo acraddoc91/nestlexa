@@ -1,4 +1,5 @@
 import json
+import sys
 sys.path += [os.path.dirname(__file__)]
 import easyCurl
 
