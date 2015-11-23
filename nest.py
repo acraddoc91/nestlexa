@@ -18,7 +18,7 @@ def getTotURL():
 
 def getData():
 	data = easyCurl.getJson(totURL)
-	return data.text
+	return json.loads(data.text)
 
 def putData(data): 
 	r = easyCurl.putJson(totURL, data)
