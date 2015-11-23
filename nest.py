@@ -1,5 +1,6 @@
-import easyCurl
 import json
+sys.path += [os.path.dirname(__file__)]
+import easyCurl
 
 #This reads you're authirsation code and thermostat ID from the AuthDetails file. You'll need to change these for you
 authcode = ''
